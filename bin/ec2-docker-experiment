@@ -1,0 +1,39 @@
+#!/usr/bin/env node
+var yaml = require("js-yaml"),
+    fs = require("fs"),
+    path = require("path"),
+    folder = process.argv[2] || process.cwd(),
+    configFile = path.resolve(folder, "./experiment.yaml"),
+    config;
+
+process.chdir(folder);
+
+function fillAllEnvVariables(object) {
+    Object.keys(object).forEach(function (field) {
+        var value = object[field];
+        if (typeof value === "string") {
+            var parts = /^\$([A-Z_]+)$/.exec(value);
+            if (parts) {
+                object[field] = process.env[parts[1]];
+            }
+        } else if (typeof value === "object" ) {
+            fillAllEnvVariables(value);
+        }
+    });
+}
+
+if (fs.existsSync(configFile)) {
+    try {
+        config = yaml.safeLoad(fs.readFileSync(configFile, 'utf8'), {
+            filename: configFile
+        });
+        fillAllEnvVariables(config);
+    } catch (error) {
+        console.error("Error while parsing the configuration at " + configFile + ": " + error.toString());
+        process.exit(1);
+    }
+    require("../lib").validObject(config);
+} else {
+    console.error("Can not find the required experiment.yaml configuration at " + configFile);
+    process.exit(1);
+}

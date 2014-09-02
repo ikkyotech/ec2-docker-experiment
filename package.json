@@ -1,0 +1,35 @@
+{
+  "name": "ec2-docker-experiment",
+  "version": "0.0.1",
+  "description": "Tool to start up ec2 spot instances and run a Docker experiment on them",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@rnd.ikkyotech.com:ikkyotech/ec2-docker-experiment.git"
+  },
+  "keywords": [
+    "aws",
+    "ci",
+    "experiment"
+  ],
+  "bin": {
+    "ec2-docker-experiment": "./bin/ec2-docker-experiment"
+  },
+  "author": "Martin Heidegger <martin.heidegger@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^0.9.0",
+    "aws-sdk": "^2.0.15",
+    "dateformat": "^1.0.8-1.2.3",
+    "explicit": "0.0.2",
+    "glob": "^4.0.5",
+    "joi": "^4.6.2",
+    "js-yaml": "^3.2.1",
+    "remote-exec": "0.0.3",
+    "simple-ssh": "^0.7.4",
+    "ssh2": "^0.3.6"
+  }
+}
