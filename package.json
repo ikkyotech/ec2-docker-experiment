@@ -1,6 +1,6 @@
 {
   "name": "ec2-docker-experiment",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Tool to start up ec2 spot instances and run a Docker experiment on them",
   "main": "index.js",
   "scripts": {
