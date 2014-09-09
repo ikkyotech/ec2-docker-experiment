@@ -1,0 +1,91 @@
+##
+#=
+#=    Example of a 'experiment.yaml'-file to describe the parameters of running the experiment using ec2-docker-experiment
+#=    (fill in the ...)
+##
+
+#
+#  Name of the experiment (will be used by when tagging the spot-request/server)
+#
+name: bono
+
+#
+#  Usually its better to run experiments in Docker, you can disable that for testing here.
+#
+useDocker: true
+
+#
+#  Credentials to do operations on AWS (has to have access to ec2 and s3 buckets)
+#  $(...) means that the value will be loaded from an environment variable
+#
+credentials:
+    accessKeyId: $AWS_ACCESS_KEY_ID
+    secretAccessKey: $AWS_SECRET_ACCESS_KEY
+    # Usually us-east-1 is okay
+    region: "us-east-1"
+
+#
+#  Specification for the server on which the experiment will be run
+#
+spec:
+    # Since we use spot requests we have to have a maximum bidding for the type (in usd/hour)
+    bidding: 0.2
+
+    # Type of the server that should be launched
+    type: g2.2xlarge
+
+    # Make sure that the ami has docker installed!
+    ami: ...
+
+    # The name of the Key that will be used when setting up the server instance.
+    # http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html
+    key: ...
+
+    # Security group in which the server will be launched (has to be reachable by public access!)
+    securityGroup: ...
+
+    # Subnet to which the server will be connected
+    subnet: ...
+
+# 
+#  Access credentials for executing ssh scripts on the server
+#
+access:
+
+    # User that will be used (usually defined by the ami)
+    user: ec2-user
+
+    # Private key that matches the key definition in spec.key
+    privateKey: $AWS_PRIVATE_KEY
+
+#
+#  You can offer input & store output in a s3 bucket,
+#  Make sure that the user as described in "credentials" has access
+#
+s3:
+    # Location of the tar.gz file that should be downloaded and extracted to /in
+    in:
+        bucket: ...
+        file: in.tar.gz
+
+    # Location of where the experiment should push the content of /out
+    out:
+        bucket: ...
+
+        # The files will have information about the build so we only need a common prefix.
+        prefix: out/
+
+#
+#  Docker allows to give access to files & folders to the container using the -v option.
+#  Every line in "imports" looks like this
+#
+#     <server-path>(:<docker-path>)
+#
+#  server-path ... path on the host that runs the docker container
+#  docker-path ... path as which the file/folder will be available in the docker container
+#
+#  If no docker-path is given it will use the same path as is given in the server-path
+#
+imports: |
+    /usr/local/bin/shared-app
+    /usr/local/bin/myhack:/usr/local/bin/node
