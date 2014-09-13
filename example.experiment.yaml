@@ -47,6 +47,9 @@ spec:
     # Subnet to which the server will be connected
     subnet: ...
 
+    # Use a big instance storage instead of a local folder for /tmp/in (default: false)
+    instanceStorage: true
+
 # 
 #  Access credentials for executing ssh scripts on the server
 #
