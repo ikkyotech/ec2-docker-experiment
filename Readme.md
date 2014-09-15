@@ -25,3 +25,7 @@ $ ec2-docker-experiment .
 This script requires access to AWS using secret access keys. The keys can be limited to EC2 access but they need to be able to change/access everything.
 
 If you wish to load data from a bucket and upload the results to a bucket then you need to give access the user with formentioned access-keys access to this bucket.
+
+# Why encapsulated in a docker script?
+
+For tests you want a clean environment. Docker offers a clean system to start from and so tests can be executed multiple times.
