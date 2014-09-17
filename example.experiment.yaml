@@ -50,6 +50,9 @@ spec:
     # Use a big instance storage instead of a local folder for /tmp/in (default: false)
     instanceStorage: true
 
+    # Keep the spot-request/instance/ephemeral storage running after the experiment finished (default: false)
+    keepAlive: true
+
 # 
 #  Access credentials for executing ssh scripts on the server
 #
