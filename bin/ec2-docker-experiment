@@ -2,7 +2,8 @@
 var yaml = require("js-yaml"),
     fs = require("fs"),
     path = require("path"),
-    folder = process.argv[2] || process.cwd(),
+    argv = require("yargs").boolean("keep-server").argv,
+    folder = argv._[0] || process.cwd(),
     configFile = path.resolve(folder, "./experiment.yaml"),
     config;
 
