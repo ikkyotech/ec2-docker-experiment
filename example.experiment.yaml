@@ -53,6 +53,9 @@ spec:
     # Keep the spot-request/instance/ephemeral storage running after the experiment finished (default: false)
     keepAlive: true
 
+    # When you keep-alive a spot-instance request you might want to reuse it.
+    spotInstance: sir-....
+
 # 
 #  Access credentials for executing ssh scripts on the server
 #
